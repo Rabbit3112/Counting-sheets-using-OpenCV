@@ -66,10 +66,6 @@ Install the required libraries using pip by running 'requirements.txt' :
 
 
   pip install -r requirements.txt
-  Running the Application
-  Navigate to the project directory:
-
-
 
 
 
