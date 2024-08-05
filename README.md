@@ -39,7 +39,8 @@ step 1 : To run this application, you need to have the following libraries insta
 step 2 : To Clone the repository:
 
 
-git clone <https://github.com/Rabbit3112/Counting-papers-using-OpenCV.git>
+  git clone <https://github.com/Rabbit3112/Counting-papers-using-OpenCV.git>
+
 Now open the cloned directory and open your VS-Code or any other tool to run the code
 
 
@@ -51,8 +52,8 @@ Now open the cloned directory and open your VS-Code or any other tool to run the
 Step 3: Create a virtual environment (optional but recommended):
 
 
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+  python -m venv venv
+  source venv/bin/activate  
 
 
 
@@ -64,9 +65,9 @@ Step 4: Install the required packages:
 Install the required libraries using pip by running 'requirements.txt' :
 
 
-pip install -r requirements.txt
-Running the Application
-Navigate to the project directory:
+  pip install -r requirements.txt
+  Running the Application
+  Navigate to the project directory:
 
 
 
@@ -77,7 +78,7 @@ Navigate to the project directory:
 Step 5: Run the Streamlit Application:
 
 
-streamlit run app.py
+  streamlit run app.py
 
 This command will launch the web application and open it in your default web browser.
 
