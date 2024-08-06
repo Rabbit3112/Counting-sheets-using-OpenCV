@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import streamlit as st
 from PIL import Image
+import time
 
 # Function to perform noise reduction
 def reduce_noise(image):
@@ -31,6 +32,8 @@ def blur_background(image, mask):
 
 # Function to count sheets in an image with enhanced processing
 def count_sheets(image):
+    start_time = time.time()  # Start processing time
+
     # Convert PIL image to a NumPy array
     image = np.array(image.convert('RGB'))
     
@@ -75,6 +78,9 @@ def count_sheets(image):
             cv2.drawContours(output_image, [contour], -1, (0, 255, 0), 2)
             num_sheets += 1
     
+    # Calculate processing time
+    processing_time = time.time() - start_time
+    
     # Display intermediate images for debugging
     debug_image('Gray Image', gray)
     debug_image('Sharpened Image', sharpened)
@@ -82,7 +88,7 @@ def count_sheets(image):
     debug_image('Blurred Background Image', blurred_image)
     debug_image('Edges Image', edges)
     
-    return num_sheets, output_image
+    return num_sheets, output_image, processing_time
 
 def debug_image(title, image):
     st.image(image, caption=title, use_column_width=True)
@@ -137,7 +143,7 @@ st.write(" ")
 st.write(" ")
 st.write(" ")
 
-st.subheader(" Output image for Example")
+st.subheader("Output Image for Example")
 st.write(" ")
 st.write(" ")
 st.image("D:\\Projects\\Counting-sheets-using-OpenCV\\image\\example image.jpg")
@@ -147,20 +153,29 @@ st.write(" ")
 st.write(" ")
 st.write(" ")
 st.title('To use this application:')
-st.image("D:\\Projects\\Counting-sheets-using-OpenCV\\image\\D:\\Projects\\Corpus-Chat-bot\\image\\upload button.png")
+st.image("D:\\Projects\\Counting-sheets-using-OpenCV\\image\\upload button.png")
 st.write(" ")
 st.write(" ")
 st.subheader("Upload an image of sheet stacks, and the application will count the number of sheets.")
 st.write(" ")
+
 # Image upload
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
 
+# Placeholders for displaying results
 count_placeholder = st.empty()
+processing_time_placeholder = st.empty()
+
 if uploaded_file is not None:
     st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
     image = Image.open(uploaded_file)
-    num_sheets, output_image = count_sheets(image)
-    # Update the placeholder with the counted result
+    num_sheets, output_image, processing_time = count_sheets(image)
+    
+    # Update placeholders with the counted result and processing time
     count_placeholder.write(f"Number of sheets detected: {num_sheets}")
+    processing_time_placeholder.write(f"Processing Time: {processing_time:.2f} seconds")
+    
+    # Display additional results
     st.subheader(f"Number of sheets detected: {num_sheets}")
     st.image(output_image, caption="Detected Sheets", use_column_width=True)
+    st.write(f"Processing Time: {processing_time:.2f} seconds")
